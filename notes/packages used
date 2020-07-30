@@ -1,0 +1,8 @@
+express
+crypto --> user.js 
+uuid --> user.js
+Router --> auth.js (Routes)
+express-validation -->auth.js(Routes and controller)
+jwt(json web token) -->auth.js(controller)
+expressJwt -->auth.js(controller)
+Params
