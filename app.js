@@ -1,28 +1,29 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const app = express();
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
+
 
 //Exporting a route files
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const categoryRoutes = require("./routes/category");
-const productRoutes = require("./routes/product");
-const orderRoutes = require("./routes/order");
-const stripeRoutes = require("./routes/stripepayment");
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const categoryRoutes = require('./routes/category');
+const productRoutes = require('./routes/product');
+const orderRoutes = require('./routes/order');
+const stripeRoutes = require('./routes/stripepayment');
 
 //Database connection
 mongoose
-	.connect(process.env.DATABASE, {
+	.connect(process.env.DATABASE || 'mongodb://localhost:27017/tshirt', {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
-		useCreateIndex: true,
+		useCreateIndex: true
 	})
 	.then(() => {
-		console.log("DB CONNECTED");
+		console.log('DB CONNECTED');
 	});
 
 //Middleware Connection
@@ -32,12 +33,12 @@ app.use(cookieParser());
 app.use(cors());
 
 //My Routes
-app.use("/api", authRoutes);
-app.use("/api", userRoutes);
-app.use("/api", categoryRoutes);
-app.use("/api", productRoutes);
-app.use("/api", orderRoutes);
-app.use("/api", stripeRoutes);
+app.use('/api', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', productRoutes);
+app.use('/api', orderRoutes);
+app.use('/api', stripeRoutes);
 
 //Http req and res connection with a server
 const port = process.env.PORT || 8000;
